@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView puzzleView;
     private TextView curSolView;
     private Cryptogranny cryptogranny;
     private Character fromM;
@@ -18,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        puzzleView = (TextView) findViewById(R.id.puzzleText);
         curSolView = (TextView) findViewById(R.id.curSolText);
 
         View keyboard = findViewById(R.id.keyboard);
@@ -41,9 +39,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         cryptogranny = new Cryptogranny("PUZZLE FOO");
-        puzzleView.setText(cryptogranny.getPuzzle());
 
         LinearLayout puzzleLayout = (LinearLayout) findViewById(R.id.puzzleLayout);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1
+        );
         for(Character m: cryptogranny.getPuzzle().toCharArray()){
             Button puzzleButton = new Button(this);
             puzzleButton.setText(m.toString());
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     handleClickOnN(button.getText().charAt(0));
                 }
             });
-            puzzleLayout.addView(puzzleButton);
+            puzzleLayout.addView(puzzleButton, p);
         }
 
         updatePuzzleState();

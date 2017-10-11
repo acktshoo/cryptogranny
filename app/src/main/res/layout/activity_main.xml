@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.anna.cryptogranny.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/puzzleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"></LinearLayout>
     <TextView
         android:id="@+id/curSolText"
         android:layout_width="wrap_content"
@@ -19,17 +14,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/puzzleText" />
+        app:layout_constraintBottom_toTopOf="@+id/puzzleLayout" />
 
-    <TextView
-        android:id="@+id/puzzleText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/puzzleLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/curSolText"
         app:layout_constraintBottom_toTopOf="@+id/keyboard"
-        tools:text="puzzle" />
+        android:orientation="horizontal"/>
 
     <include
         android:id="@+id/keyboard"
@@ -40,9 +35,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/puzzleText"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/puzzleLayout" />
 
 </android.support.constraint.ConstraintLayout>
