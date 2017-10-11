@@ -2,12 +2,6 @@ package com.example.anna.cryptogranny;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -59,8 +53,10 @@ class Cryptogranny {
             }
         }
 
-        return new PuzzleState(String.valueOf(curSol), this.puzzle, pool.toString());
+        return new PuzzleState(String.valueOf(curSol), pool.toString());
     }
+
+    public String getPuzzle() { return puzzle; }
 
     public void guess(@NonNull Character fromM, @NonNull Character toN) {
         clearN(toN);
@@ -85,23 +81,16 @@ class Cryptogranny {
 
     public class PuzzleState {
         private final String pool;
-        private final String puzzle;
         private final String curSol;
 
-        public PuzzleState(String curSol, String puzzle, String pool) {
+        public PuzzleState(String curSol, String pool) {
             this.curSol = curSol;
-            this.puzzle = puzzle;
             this.pool = pool;
         }
 
         public String getCurSol() {
             return curSol;
         }
-
-        public String getPuzzle() {
-            return puzzle;
-        }
-
         public String getPool() {
             return pool;
         }

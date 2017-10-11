@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         puzzleView = (TextView) findViewById(R.id.puzzleText);
         curSolView = (TextView) findViewById(R.id.curSolText);
+
         View keyboard = findViewById(R.id.keyboard);
         for (View view: keyboard.getTouchables()){
             Button button = (Button) view;
@@ -37,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
                 handleClickClear();
             }
         });
+
         cryptogranny = new Cryptogranny("PUZZLE FOO");
+        puzzleView.setText(cryptogranny.getPuzzle());
+        
         updatePuzzleState();
     }
 
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private void updatePuzzleState() {
         // Puzzle state
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        puzzleView.setText(puzzleState.getPuzzle());
         curSolView.setText(puzzleState.getCurSol());
     }
 }

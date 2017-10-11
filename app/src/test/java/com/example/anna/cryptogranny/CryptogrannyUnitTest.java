@@ -29,7 +29,7 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("___", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", puzzleState.getPool());
         assertEquals(26, puzzleState.getPool().length());
     }
@@ -41,7 +41,7 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'A');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_A_", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
@@ -53,7 +53,7 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'Y');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_Y_", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
@@ -65,7 +65,7 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'R');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_R_R", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
@@ -78,7 +78,7 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'A');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_AB", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWX", puzzleState.getPool());
         assertEquals(24, puzzleState.getPool().length());
     }
@@ -91,7 +91,6 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'A');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_ABA", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWX", puzzleState.getPool());
         assertEquals(24, puzzleState.getPool().length());
     }
@@ -104,7 +103,6 @@ public class CryptogrannyUnitTest {
         cryptogranny.clearM('Y');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("___", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", puzzleState.getPool());
         assertEquals(26, puzzleState.getPool().length());
     }
@@ -117,7 +115,6 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'B');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_B_", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
@@ -129,7 +126,6 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'B');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_B_B_", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
@@ -141,7 +137,7 @@ public class CryptogrannyUnitTest {
         cryptogranny.guess('Y', 'A');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("_A_ A_", puzzleState.getCurSol());
-        assertEquals(puzzle, puzzleState.getPuzzle());
+        assertEquals(puzzle, cryptogranny.getPuzzle());
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
         assertEquals(25, puzzleState.getPool().length());
     }
