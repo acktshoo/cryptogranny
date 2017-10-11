@@ -63,7 +63,7 @@ class Cryptogranny {
     }
 
     public void guess(@NonNull Character fromM, @NonNull Character toN) {
-        clear(toN);
+        clearN(toN);
         this.mapping.put(fromM, toN);
     }
 
@@ -74,9 +74,13 @@ class Cryptogranny {
         return null;
     }
 
-    public void clear(@NonNull Character n) {
+    public void clearN(@NonNull Character n) {
         Character m = findM(n);
         if (m != null) mapping.remove(m);
+    }
+
+    public void clearM(@NonNull Character m){
+        mapping.remove(m);
     }
 
     public class PuzzleState {

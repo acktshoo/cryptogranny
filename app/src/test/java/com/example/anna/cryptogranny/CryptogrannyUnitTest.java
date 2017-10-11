@@ -101,7 +101,7 @@ public class CryptogrannyUnitTest {
         String puzzle = "XYZ";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'A');
-        cryptogranny.clear('A');
+        cryptogranny.clearM('Y');
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         assertEquals("___", puzzleState.getCurSol());
         assertEquals(puzzle, puzzleState.getPuzzle());
