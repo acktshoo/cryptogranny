@@ -114,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
             Button button = (Button) view;
             if (cryptogranny.isNUsed(button.getText().charAt(0))){
                 button.setTextColor(getResources().getColor(android.R.color.white, null));
+                button.getBackground().setTint(getResources().getColor(android.R.color.holo_blue_dark, null));
             } else{
                 button.setTextColor(getResources().getColor(android.R.color.black, null));
+                button.getBackground().setTint(getResources().getColor(android.R.color.holo_blue_bright, null));
             }
         }
     }
