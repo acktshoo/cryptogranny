@@ -58,6 +58,10 @@ class Cryptogranny {
 
     public String getPuzzle() { return puzzle; }
 
+    public boolean isNUsed(Character n){
+        return mapping.containsValue(n);
+    }
+
     public void guess(@NonNull Character fromM, @NonNull Character toN) {
         clearN(toN);
         this.mapping.put(fromM, toN);

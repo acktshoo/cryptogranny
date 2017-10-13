@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private Cryptogranny cryptogranny;
     private Character fromM;
     private LinearLayout puzzleLayout;
+    private View keyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         curSolView = (TextView) findViewById(R.id.curSolText);
 
-        View keyboard = findViewById(R.id.keyboard);
+        keyboard = findViewById(R.id.keyboard);
         for (View view: keyboard.getTouchables()){
             Button button = (Button) view;
             button.setOnClickListener(new View.OnClickListener() {
@@ -108,5 +109,14 @@ public class MainActivity extends AppCompatActivity {
         // Puzzle state
         Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
         curSolView.setText(puzzleState.getCurSol());
+        for (View view: keyboard.getTouchables()) {
+            if(view.getId() == R.id.clear) continue;
+            Button button = (Button) view;
+            if (cryptogranny.isNUsed(button.getText().charAt(0))){
+                button.setTextColor(getResources().getColor(android.R.color.white, null));
+            } else{
+                button.setTextColor(getResources().getColor(android.R.color.black, null));
+            }
+        }
     }
 }
