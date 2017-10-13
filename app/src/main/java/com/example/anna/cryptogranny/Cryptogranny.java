@@ -83,6 +83,10 @@ class Cryptogranny {
         mapping.remove(m);
     }
 
+    public void resetPuzzle() {
+        mapping.clear();
+    }
+
     public class PuzzleState {
         private final String pool;
         private final String curSol;

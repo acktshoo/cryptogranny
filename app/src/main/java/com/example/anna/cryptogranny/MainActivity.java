@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Character fromM;
     private LinearLayout puzzleLayout;
     private View keyboard;
+    private Button clearButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        Button clear = (Button) findViewById(R.id.clear);
-        clear.setOnClickListener(new View.OnClickListener() {
+        clearButton = (Button) findViewById(R.id.clear);
+        clearButton.setText("CLEAR ALL");
+        clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handleClickClear();
@@ -68,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
     private void handleClickOnM(Character fromM) {
         clearPuzzleHighlight();
         if( this.fromM != null && this.fromM.equals(fromM)){
-            this.fromM = null;
+            resetM();
         } else {
             this.fromM = fromM;
+            clearButton.setText("CLEAR");
             for (View view : puzzleLayout.getTouchables()) {
                 Button button = (Button) view;
                 if (button.getText().equals(fromM.toString())) {
@@ -80,19 +83,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void resetM() {
+        this.fromM = null;
+        clearButton.setText("CLEAR ALL");
+    }
+
     private void handleClickClear() {
         if(fromM != null) {
             cryptogranny.clearM(fromM);
-            fromM = null;
-            updatePuzzleState();
+            resetM();
+        } else {
+            cryptogranny.resetPuzzle();
         }
         clearPuzzleHighlight();
+        updatePuzzleState();
     }
 
     private void handleClickOnN(Character toN) {
         if(fromM != null) {
             cryptogranny.guess(fromM, toN);
-            fromM = null;
+            resetM();
             updatePuzzleState();
         }
         clearPuzzleHighlight();
