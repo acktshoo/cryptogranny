@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView curSolView;
     private Cryptogranny cryptogranny;
     private Character fromM;
+    private LinearLayout puzzleLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Button button = (Button) view;
-                    handleClickOnM(button.getText().charAt(0));
+                    handleClickOnN(button.getText().charAt(0));
                 }
             });
         }
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         cryptogranny = new Cryptogranny("PUZZLE FOO");
 
-        LinearLayout puzzleLayout = (LinearLayout) findViewById(R.id.puzzleLayout);
+        puzzleLayout = (LinearLayout) findViewById(R.id.puzzleLayout);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 0,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -49,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
         for(Character m: cryptogranny.getPuzzle().toCharArray()){
             Button puzzleButton = new Button(this);
             puzzleButton.setText(m.toString());
+            puzzleButton.setBackgroundColor(0);
             puzzleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Button button = (Button) view;
-                    handleClickOnN(button.getText().charAt(0));
+                    handleClickOnM(button.getText().charAt(0));
                 }
             });
             puzzleLayout.addView(puzzleButton, p);
@@ -62,8 +64,16 @@ public class MainActivity extends AppCompatActivity {
         updatePuzzleState();
     }
 
-    private void handleClickOnN(Character fromM) {
+    private void handleClickOnM(Character fromM) {
         this.fromM = fromM;
+        for (View view: puzzleLayout.getTouchables()){
+            Button button = (Button) view;
+            if(button.getText().equals(fromM.toString())){
+                button.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light, null));
+            } else {
+                button.setBackgroundColor(0);
+            }
+        }
     }
 
     private void handleClickClear() {
@@ -72,13 +82,22 @@ public class MainActivity extends AppCompatActivity {
             fromM = null;
             updatePuzzleState();
         }
+        clearPuzzleHighlight();
     }
 
-    private void handleClickOnM(Character toN) {
+    private void handleClickOnN(Character toN) {
         if(fromM != null) {
             cryptogranny.guess(fromM, toN);
             fromM = null;
             updatePuzzleState();
+        }
+        clearPuzzleHighlight();
+    }
+
+    private void clearPuzzleHighlight() {
+        for (View view: puzzleLayout.getTouchables()) {
+            Button button = (Button) view;
+            button.setBackgroundColor(0);
         }
     }
 
