@@ -65,13 +65,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleClickOnM(Character fromM) {
-        this.fromM = fromM;
-        for (View view: puzzleLayout.getTouchables()){
-            Button button = (Button) view;
-            if(button.getText().equals(fromM.toString())){
-                button.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light, null));
-            } else {
-                button.setBackgroundColor(0);
+        clearPuzzleHighlight();
+        if( this.fromM != null && this.fromM.equals(fromM)){
+            this.fromM = null;
+        } else {
+            this.fromM = fromM;
+            for (View view : puzzleLayout.getTouchables()) {
+                Button button = (Button) view;
+                if (button.getText().equals(fromM.toString())) {
+                    button.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light, null));
+                }
             }
         }
     }
