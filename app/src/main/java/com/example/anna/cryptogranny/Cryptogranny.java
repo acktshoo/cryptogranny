@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //    N = mapping.keyof( M )
 //    if N:
 //       mapping.del( N )
-// getPuzzleState():
+// getCurSol():
 //   curSol = mapping[ i ] if i in mapping else " " for i in str;
 //   pool = [ A .. Z ] - mapping.keys()
 //   return curSol, puzzle, pool
@@ -31,7 +31,7 @@ class Cryptogranny {
         this.puzzle = puzzle;
     }
 
-    public PuzzleState getPuzzleState() {
+    public String getCurSol() {
         char[] curSol = new char[puzzle.length()];
         for (int i = 0; i < puzzle.length(); i++) {
             char m = puzzle.charAt(i);
@@ -46,14 +46,7 @@ class Cryptogranny {
             curSol[i] = n;
         }
 
-        StringBuilder pool = new StringBuilder();
-        for (Character m = 'A'; m <= 'Z'; m++) {
-            if (!mapping.containsKey(m)) {
-                pool.append(m);
-            }
-        }
-
-        return new PuzzleState(String.valueOf(curSol), pool.toString());
+        return String.valueOf(curSol);
     }
 
     public String getPuzzle() { return puzzle; }
@@ -87,20 +80,4 @@ class Cryptogranny {
         mapping.clear();
     }
 
-    public class PuzzleState {
-        private final String pool;
-        private final String curSol;
-
-        public PuzzleState(String curSol, String pool) {
-            this.curSol = curSol;
-            this.pool = pool;
-        }
-
-        public String getCurSol() {
-            return curSol;
-        }
-        public String getPool() {
-            return pool;
-        }
-    }
 }

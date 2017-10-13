@@ -2,8 +2,6 @@ package com.example.anna.cryptogranny;
 
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 // mapping = {}
@@ -16,7 +14,7 @@ import static org.junit.Assert.*;
 //    N = mapping.keyof( M )
 //    if N:
 //       mapping.del( N )
-// getPuzzleState():
+// getCurSol():
 //   curSol = mapping[ i ] if i in mapping else " " for i in str;
 //   pool = [ A .. Z ] - mapping.keys()
 //   return curSol, puzzle, pool
@@ -24,14 +22,12 @@ import static org.junit.Assert.*;
 public class CryptogrannyUnitTest {
     @Test
     public void noGuesses_isCorrect() throws Exception {
-        // base getPuzzleState with no guesses
+        // base getCurSol with no guesses
         String puzzle = "XYZ";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("___", puzzleState.getCurSol());
+        assertEquals("___", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", puzzleState.getPool());
-        assertEquals(26, puzzleState.getPool().length());
+        assertFalse( cryptogranny.isNUsed('A') );
     }
 
     @Test
@@ -39,11 +35,11 @@ public class CryptogrannyUnitTest {
         String puzzle = "XYZ";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'A');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_A_", puzzleState.getCurSol());
+
+        assertEquals("_A_", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+        assertTrue( cryptogranny.isNUsed('A'));
+        assertFalse( cryptogranny.isNUsed('Y') );
     }
 
     @Test
@@ -51,11 +47,10 @@ public class CryptogrannyUnitTest {
         String puzzle = "XYZ";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'Y');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_Y_", puzzleState.getCurSol());
+       
+        assertEquals("_Y_", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+        assertTrue( cryptogranny.isNUsed('Y'));
     }
 
     @Test
@@ -63,11 +58,10 @@ public class CryptogrannyUnitTest {
         String puzzle = "XYZY";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'R');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_R_R", puzzleState.getCurSol());
+       
+        assertEquals("_R_R", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+        assertTrue( cryptogranny.isNUsed('R'));
     }
 
     @Test
@@ -76,11 +70,11 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Z', 'B');
         cryptogranny.guess('Y', 'A');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_AB", puzzleState.getCurSol());
+       
+        assertEquals("_AB", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWX", puzzleState.getPool());
-        assertEquals(24, puzzleState.getPool().length());
+        assertTrue( cryptogranny.isNUsed('A'));
+        assertTrue( cryptogranny.isNUsed('B'));
     }
 
     @Test
@@ -89,10 +83,10 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Z', 'B');
         cryptogranny.guess('Y', 'A');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_ABA", puzzleState.getCurSol());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWX", puzzleState.getPool());
-        assertEquals(24, puzzleState.getPool().length());
+       
+        assertEquals("_ABA", cryptogranny.getCurSol());
+        assertTrue( cryptogranny.isNUsed('A'));
+        assertTrue( cryptogranny.isNUsed('B'));
     }
 
     @Test
@@ -101,10 +95,9 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'A');
         cryptogranny.clearM('Y');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("___", puzzleState.getCurSol());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", puzzleState.getPool());
-        assertEquals(26, puzzleState.getPool().length());
+       
+        assertEquals("___", cryptogranny.getCurSol());
+        assertFalse( cryptogranny.isNUsed('A'));
     }
 
     @Test
@@ -113,10 +106,9 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Z', 'B');
         cryptogranny.guess('Y', 'B');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_B_", puzzleState.getCurSol());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+       
+        assertEquals("_B_", cryptogranny.getCurSol());
+        assertTrue( cryptogranny.isNUsed('B'));
     }
     @Test
     public void replaceGuessWithTwoOccurrences_isCorrect() throws Exception {
@@ -124,10 +116,9 @@ public class CryptogrannyUnitTest {
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Z', 'B');
         cryptogranny.guess('Y', 'B');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_B_B_", puzzleState.getCurSol());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+       
+        assertEquals("_B_B_", cryptogranny.getCurSol());
+        assertTrue( cryptogranny.isNUsed('B') );
     }
 
     @Test
@@ -135,10 +126,9 @@ public class CryptogrannyUnitTest {
         String puzzle = "XYZ YX";
         Cryptogranny cryptogranny = new Cryptogranny(puzzle);
         cryptogranny.guess('Y', 'A');
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        assertEquals("_A_ A_", puzzleState.getCurSol());
+       
+        assertEquals("_A_ A_", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
-        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZ", puzzleState.getPool());
-        assertEquals(25, puzzleState.getPool().length());
+        assertTrue( cryptogranny.isNUsed('A'));
     }
 }

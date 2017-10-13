@@ -117,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updatePuzzleState() {
         // Puzzle state
-        Cryptogranny.PuzzleState puzzleState = cryptogranny.getPuzzleState();
-        curSolView.setText(puzzleState.getCurSol());
+        curSolView.setText(cryptogranny.getCurSol());
         for (View view: keyboard.getTouchables()) {
             if(view.getId() == R.id.clear) continue;
             Button button = (Button) view;
