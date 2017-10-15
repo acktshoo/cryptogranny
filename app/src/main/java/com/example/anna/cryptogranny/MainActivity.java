@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.wefika.flowlayout.FlowLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String puzzle = "PUZZLE FOO ";
+        String puzzle = "PUZZLE EOO ";
         for(int i = 0; i < 3; i++) puzzle += puzzle;
         cryptogranny = new Cryptogranny(puzzle);
 
@@ -37,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
+        p.setMarginStart(getDp(8));
+        p.setMarginEnd(getDp(8));
         for(String puzzleWord: cryptogranny.getPuzzleWords()) {
             LinearLayout word = new LinearLayout(this);
             for (Character m : puzzleWord.toCharArray()) {
@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updatePuzzleState();
+    }
+
+    private int getDp(int i) {
+        return (int) (getResources().getDisplayMetrics().density * i);
     }
 
     private void handleClickOnM(Character fromM) {
