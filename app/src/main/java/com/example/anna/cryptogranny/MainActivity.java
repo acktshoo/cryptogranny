@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String puzzle = "PUZZLE EOO ";
-        for(int i = 0; i < 3; i++) puzzle += puzzle;
+        for(int i = 0; i < 1; i++) puzzle += puzzle;
         cryptogranny = new Cryptogranny(puzzle);
 
         // Setup puzzle display
