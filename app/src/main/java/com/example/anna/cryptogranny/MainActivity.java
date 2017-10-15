@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cryptogranny = new Cryptogranny("PUZZLE FOO");
+        String puzzle = "PUZZLE FOO ";
+        for(int i = 0; i < 3; i++) puzzle += puzzle;
+        cryptogranny = new Cryptogranny(puzzle);
 
         // Setup puzzle display
         puzzleLayout = (FlowLayout) findViewById(R.id.puzzleLayout);
