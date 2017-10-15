@@ -35,18 +35,23 @@ class Cryptogranny {
         char[] curSol = new char[puzzle.length()];
         for (int i = 0; i < puzzle.length(); i++) {
             char m = puzzle.charAt(i);
-            char n;
-            if (m == ' ') {
-                n = m;
-            } else if (mapping.containsKey(m)) {
-                n = mapping.get(m);
-            } else {
-                n = '_';
-            }
+            char n = getN(m);
             curSol[i] = n;
         }
 
         return String.valueOf(curSol);
+    }
+
+    public Character getN(char m) {
+        char n;
+        if (m == ' ') {
+            n = m;
+        } else if (mapping.containsKey(m)) {
+            n = mapping.get(m);
+        } else {
+            n = '_';
+        }
+        return n;
     }
 
     public String getPuzzle() { return puzzle; }

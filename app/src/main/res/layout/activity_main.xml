@@ -6,23 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.anna.cryptogranny.MainActivity">
 
-    <TextView
-        android:id="@+id/curSolText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="curSol"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/puzzleLayout" />
-
     <LinearLayout
         android:id="@+id/puzzleLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/curSolText"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/keyboard"
         android:orientation="horizontal"/>
 
