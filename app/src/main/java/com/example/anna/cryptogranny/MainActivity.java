@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wefika.flowlayout.FlowLayout;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Cryptogranny cryptogranny;
     private Character fromM;
-    private LinearLayout puzzleLayout;
+    private FlowLayout puzzleLayout;
     private View keyboard;
     private Button clearButton;
 
@@ -27,11 +29,10 @@ public class MainActivity extends AppCompatActivity {
         cryptogranny = new Cryptogranny("PUZZLE FOO");
 
         // Setup puzzle display
-        puzzleLayout = (LinearLayout) findViewById(R.id.puzzleLayout);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                0,
+        puzzleLayout = (FlowLayout) findViewById(R.id.puzzleLayout);
+        FlowLayout.LayoutParams p = new FlowLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                1
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
         for(Character m: cryptogranny.getPuzzle().toCharArray()){
             View view = getLayoutInflater().inflate(R.layout.letter_column, null);
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     handleClickOnM(puzzleButton.getText().charAt(0));
                 }
             });
+            //view.setLayoutParams(p);
             puzzleLayout.addView(view, p);
         }
 

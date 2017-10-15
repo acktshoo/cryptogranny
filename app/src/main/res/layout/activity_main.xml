@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.anna.cryptogranny.MainActivity">
 
-    <LinearLayout
+    <com.wefika.flowlayout.FlowLayout
         android:id="@+id/puzzleLayout"
+        android:gravity="center|top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
