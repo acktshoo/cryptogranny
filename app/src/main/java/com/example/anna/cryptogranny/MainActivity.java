@@ -37,17 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         for(Character m: cryptogranny.getPuzzle().toCharArray()){
-            View view = getLayoutInflater().inflate(R.layout.letter_column, null);
-            final TextView puzzleButton = view.findViewById(R.id.letterPuz);
+            View letterColumn = getLayoutInflater().inflate(R.layout.letter_column, null);
+            final TextView puzzleButton = letterColumn.findViewById(R.id.letterPuz);
             puzzleButton.setText(m.toString());
-            view.setOnClickListener(new View.OnClickListener() {
+            letterColumn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     handleClickOnM(puzzleButton.getText().charAt(0));
                 }
             });
-            //view.setLayoutParams(p);
-            puzzleLayout.addView(view, p);
+            puzzleLayout.addView(letterColumn, p);
         }
 
         // Setup Keyboard
