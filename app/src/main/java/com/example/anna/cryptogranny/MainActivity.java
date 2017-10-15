@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void clearPuzzleHighlight() {
         for (TextView button: getPuzzleButtons()) {
-            button.setBackgroundColor(0);
+            button.setBackgroundColor(getResources().getColor(android.R.color.transparent, null));
         }
     }
 
