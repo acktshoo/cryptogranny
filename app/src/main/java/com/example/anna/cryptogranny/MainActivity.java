@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private Cryptogranny cryptogranny;
@@ -31,13 +35,12 @@ public class MainActivity extends AppCompatActivity {
         );
         for(Character m: cryptogranny.getPuzzle().toCharArray()){
             View view = getLayoutInflater().inflate(R.layout.letter_column, null);
-            Button puzzleButton = view.findViewById(R.id.letterPuz);
+            final TextView puzzleButton = view.findViewById(R.id.letterPuz);
             puzzleButton.setText(m.toString());
-            puzzleButton.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Button button = (Button) view;
-                    handleClickOnM(button.getText().charAt(0));
+                    handleClickOnM(puzzleButton.getText().charAt(0));
                 }
             });
             puzzleLayout.addView(view, p);
@@ -74,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.fromM = fromM;
             clearButton.setText("CLEAR");
-            for (View view : puzzleLayout.getTouchables()) {
-                Button button = (Button) view;
+            for (TextView button : getPuzzleButtons()) {
                 if (button.getText().equals(fromM.toString())) {
                     button.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light, null));
                 }
@@ -109,17 +111,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearPuzzleHighlight() {
-        for (View view: puzzleLayout.getTouchables()) {
-            Button button = (Button) view;
+        for (TextView button: getPuzzleButtons()) {
             button.setBackgroundColor(0);
         }
+    }
+
+    private ArrayList<TextView> getPuzzleButtons() {
+        int childCount = puzzleLayout.getChildCount();
+        ArrayList<TextView> buttons = new ArrayList<>(childCount);
+        for (int i = 0; i < childCount; i++){
+            View view = puzzleLayout.getChildAt(i);
+            buttons.add((TextView) view.findViewById(R.id.letterPuz));
+        }
+        return buttons;
     }
 
     private void updatePuzzleState() {
         // Update the solution text
         for (int i = 0; i < puzzleLayout.getChildCount(); i++){
             View view = puzzleLayout.getChildAt(i);
-            Button puzzleButton = view.findViewById(R.id.letterPuz);
+            TextView puzzleButton = view.findViewById(R.id.letterPuz);
             TextView solText = view.findViewById(R.id.letterSol);
             solText.setText(cryptogranny.getN(puzzleButton.getText().charAt(0)).toString());
         }

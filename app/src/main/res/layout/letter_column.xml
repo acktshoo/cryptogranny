@@ -14,12 +14,13 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@android:color/black" />
 
-    <Button
+    <TextView
         android:id="@+id/letterPuz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         tools:text="Button"
+        android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@android:color/black" />
 </LinearLayout>
