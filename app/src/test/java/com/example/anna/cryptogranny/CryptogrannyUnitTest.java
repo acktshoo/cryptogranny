@@ -2,6 +2,8 @@ package com.example.anna.cryptogranny;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 // mapping = {}
@@ -130,5 +132,25 @@ public class CryptogrannyUnitTest {
         assertEquals("_A_ A_", cryptogranny.getCurSol());
         assertEquals(puzzle, cryptogranny.getPuzzle());
         assertTrue( cryptogranny.isNUsed('A'));
+    }
+
+    @Test
+    public void puzzleWords_isCorrect() throws Exception{
+        String puzzle = "XYZ YX";
+        Cryptogranny cryptogranny = new Cryptogranny(puzzle);
+        ArrayList<String> puzzleWords = cryptogranny.getPuzzleWords();
+        assertEquals(2, puzzleWords.size());
+        assertEquals("XYZ", puzzleWords.get(0));
+        assertEquals("YX", puzzleWords.get(1));
+    }
+
+    @Test
+    public void puzzleWordsWithTrailingSpaces_isCorrect() throws Exception{
+        String puzzle = "  XYZ  YX   ";
+        Cryptogranny cryptogranny = new Cryptogranny(puzzle);
+        ArrayList<String> puzzleWords = cryptogranny.getPuzzleWords();
+        assertEquals(2, puzzleWords.size());
+        assertEquals("XYZ", puzzleWords.get(0));
+        assertEquals("YX", puzzleWords.get(1));
     }
 }

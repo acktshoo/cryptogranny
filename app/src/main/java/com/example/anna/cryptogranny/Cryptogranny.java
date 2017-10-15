@@ -2,6 +2,8 @@ package com.example.anna.cryptogranny;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,7 +30,7 @@ class Cryptogranny {
     private ConcurrentHashMap<Character, Character> mapping = new ConcurrentHashMap<>();
 
     public Cryptogranny(String puzzle) {
-        this.puzzle = puzzle;
+        this.puzzle = puzzle.trim();
     }
 
     public String getCurSol() {
@@ -55,6 +57,11 @@ class Cryptogranny {
     }
 
     public String getPuzzle() { return puzzle; }
+
+    public ArrayList<String> getPuzzleWords() {
+        String[] puzzleWords = puzzle.split("\\s+");
+        return new ArrayList<>(Arrays.asList(puzzleWords));
+    }
 
     public boolean isNUsed(Character n){
         return mapping.containsValue(n);
