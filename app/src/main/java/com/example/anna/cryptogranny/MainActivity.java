@@ -3,6 +3,7 @@ package com.example.anna.cryptogranny;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,17 +37,21 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        for(Character m: cryptogranny.getPuzzle().toCharArray()){
-            View letterColumn = getLayoutInflater().inflate(R.layout.letter_column, null);
-            final TextView puzzleButton = letterColumn.findViewById(R.id.letterPuz);
-            puzzleButton.setText(m.toString());
-            letterColumn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleClickOnM(puzzleButton.getText().charAt(0));
-                }
-            });
-            puzzleLayout.addView(letterColumn, p);
+        for(String puzzleWord: cryptogranny.getPuzzleWords()) {
+            LinearLayout word = new LinearLayout(this);
+            for (Character m : puzzleWord.toCharArray()) {
+                View letterColumn = getLayoutInflater().inflate(R.layout.letter_column, null);
+                final TextView puzzleButton = letterColumn.findViewById(R.id.letterPuz);
+                puzzleButton.setText(m.toString());
+                letterColumn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleClickOnM(puzzleButton.getText().charAt(0));
+                    }
+                });
+                word.addView(letterColumn);
+            }
+            puzzleLayout.addView(word, p);
         }
 
         // Setup Keyboard
@@ -120,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<TextView> getPuzzleButtons() {
-        int childCount = puzzleLayout.getChildCount();
-        ArrayList<TextView> buttons = new ArrayList<>(childCount);
-        for (int i = 0; i < childCount; i++){
-            View view = puzzleLayout.getChildAt(i);
-            buttons.add((TextView) view.findViewById(R.id.letterPuz));
+        ArrayList<TextView> buttons = new ArrayList<>();
+        for (int i = 0; i < puzzleLayout.getChildCount(); i++){
+            ViewGroup viewWord = (ViewGroup) puzzleLayout.getChildAt(i);
+            for(int j = 0; j < viewWord.getChildCount(); j ++) {
+                View view = viewWord.getChildAt(j);
+                buttons.add((TextView) view.findViewById(R.id.letterPuz));
+            }
         }
         return buttons;
     }
@@ -132,10 +139,13 @@ public class MainActivity extends AppCompatActivity {
     private void updatePuzzleState() {
         // Update the solution text
         for (int i = 0; i < puzzleLayout.getChildCount(); i++){
-            View view = puzzleLayout.getChildAt(i);
-            TextView puzzleButton = view.findViewById(R.id.letterPuz);
-            TextView solText = view.findViewById(R.id.letterSol);
-            solText.setText(cryptogranny.getN(puzzleButton.getText().charAt(0)).toString());
+            ViewGroup viewWord = (ViewGroup) puzzleLayout.getChildAt(i);
+            for(int j = 0; j < viewWord.getChildCount(); j ++) {
+                View view = viewWord.getChildAt(j);
+                TextView puzzleButton = view.findViewById(R.id.letterPuz);
+                TextView solText = view.findViewById(R.id.letterSol);
+                solText.setText(cryptogranny.getN(puzzleButton.getText().charAt(0)).toString());
+            }
         }
 
         // Reflect the leftover letters in keyboard
