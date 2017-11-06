@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleNewPuzzle() {
-        Intent intent = new Intent(this, PuzzleActivity.class );
+        Intent intent = new Intent(this, InputActivity.class );
         startActivity(intent);
     }
 

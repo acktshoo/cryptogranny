@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PuzzleActivity" />
+        <activity android:name=".InputActivity" />
     </application>
 
 </manifest>
