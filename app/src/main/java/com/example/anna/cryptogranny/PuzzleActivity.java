@@ -1,5 +1,6 @@
 package com.example.anna.cryptogranny;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,8 +26,8 @@ public class PuzzleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
 
-        String puzzle = "PUZZLE FOO ";
-        for(int i = 0; i < 1; i++) puzzle += puzzle;
+        Intent intent = getIntent();
+        String puzzle =  intent.getStringExtra(InputActivity.PUZZLE_TEXT);
         cryptogranny = new Cryptogranny(puzzle);
 
         // Setup puzzle display
