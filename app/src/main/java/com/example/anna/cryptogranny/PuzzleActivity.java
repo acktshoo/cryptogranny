@@ -1,5 +1,6 @@
 package com.example.anna.cryptogranny;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,11 @@ import android.widget.TextView;
 
 import com.wefika.flowlayout.FlowLayout;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class PuzzleActivity extends AppCompatActivity {
@@ -77,6 +83,20 @@ public class PuzzleActivity extends AppCompatActivity {
         });
 
         updatePuzzleState();
+    }
+
+    @Override
+    protected void onDestroy() {
+        String filename = "savedPuzzle";
+        try {
+            FileOutputStream fileOutputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(cryptogranny);
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
     }
 
     private int getDp(int i) {

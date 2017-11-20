@@ -2,6 +2,7 @@ package com.example.anna.cryptogranny;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //   pool = [ A .. Z ] - mapping.keys()
 //   return curSol, puzzle, pool
 
-class Cryptogranny {
+class Cryptogranny implements Serializable {
     private final String puzzle;
     private ConcurrentHashMap<Character, Character> mapping = new ConcurrentHashMap<>();
 
