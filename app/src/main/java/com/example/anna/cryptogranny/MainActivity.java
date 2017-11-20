@@ -20,10 +20,25 @@ public class MainActivity extends AppCompatActivity {
                 handleNewPuzzle();
             }
         });
+
+        Button continuePuzzleButton = (Button) findViewById(R.id.continuePuzzle);
+        continuePuzzleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleContinuePuzzle();
+            }
+        });
+
+        continuePuzzleButton.setVisibility(View.VISIBLE);
     }
 
     private void handleNewPuzzle() {
         Intent intent = new Intent(this, InputActivity.class);
+        startActivity(intent);
+    }
+
+    private void handleContinuePuzzle() {
+        Intent intent = new Intent(this, PuzzleActivity.class);
         startActivity(intent);
     }
 
