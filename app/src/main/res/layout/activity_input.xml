@@ -8,8 +8,10 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:ems="10"
-        android:hint="Enter new cryptogram puzzle" />
+        android:hint="Enter new cryptogram puzzle"
+        android:inputType="textCapCharacters" />
 
     <Button
         android:id="@+id/startPuzzle"
