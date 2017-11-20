@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.File;
+
+import static com.example.anna.cryptogranny.MainActivity.filename;
+
 public class InputActivity extends AppCompatActivity {
 
     public final static String PUZZLE_TEXT = "puzzleText";
@@ -34,6 +38,9 @@ public class InputActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PuzzleActivity.class);
         String puzzleText = editText.getText().toString();
         intent.putExtra(PUZZLE_TEXT, puzzleText);
+        File filesDir = this.getFilesDir();
+        File file = new File(filesDir, filename);
+        if (file.exists()) file.delete();
         startActivity(intent);
         finish();
     }
