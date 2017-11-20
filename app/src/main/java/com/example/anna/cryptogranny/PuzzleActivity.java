@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -26,15 +28,27 @@ public class PuzzleActivity extends AppCompatActivity {
     private FlowLayout puzzleLayout;
     private View keyboard;
     private Button clearButton;
+    private final String filename = "savedPuzzle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
 
-        Intent intent = getIntent();
-        String puzzle =  intent.getStringExtra(InputActivity.PUZZLE_TEXT);
-        cryptogranny = new Cryptogranny(puzzle);
+        try {
+            FileInputStream fileInputStream = openFileInput(filename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            cryptogranny = (Cryptogranny) objectInputStream.readObject();
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        if(cryptogranny == null ) {
+            Intent intent = getIntent();
+            String puzzle = intent.getStringExtra(InputActivity.PUZZLE_TEXT);
+            cryptogranny = new Cryptogranny(puzzle);
+        }
 
         // Setup puzzle display
         puzzleLayout = (FlowLayout) findViewById(R.id.puzzleLayout);
@@ -87,7 +101,6 @@ public class PuzzleActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        String filename = "savedPuzzle";
         try {
             FileOutputStream fileOutputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
