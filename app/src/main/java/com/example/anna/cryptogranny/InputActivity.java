@@ -35,6 +35,7 @@ public class InputActivity extends AppCompatActivity {
         String puzzleText = editText.getText().toString();
         intent.putExtra(PUZZLE_TEXT, puzzleText);
         startActivity(intent);
+        finish();
     }
 
 }
