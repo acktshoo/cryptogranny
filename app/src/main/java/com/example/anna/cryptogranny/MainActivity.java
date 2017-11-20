@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
+
+    public final static String filename = "savedPuzzle";
+    private Button continuePuzzleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +26,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button continuePuzzleButton = (Button) findViewById(R.id.continuePuzzle);
+        continuePuzzleButton = (Button) findViewById(R.id.continuePuzzle);
         continuePuzzleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleContinuePuzzle();
             }
         });
+    }
 
-        continuePuzzleButton.setVisibility(View.VISIBLE);
+    private void updateContinueButton() {
+        File filesDir = this.getFilesDir();
+        File file = new File(filesDir, filename);
+        if (file.exists()) {
+            continuePuzzleButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        updateContinueButton();
+        super.onResume();
     }
 
     private void handleNewPuzzle() {
