@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(filesDir, filename);
         if (file.exists()) {
             continuePuzzleButton.setVisibility(View.VISIBLE);
+        } else {
+            continuePuzzleButton.setVisibility(View.INVISIBLE);
         }
     }
 

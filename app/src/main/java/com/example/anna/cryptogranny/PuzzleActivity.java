@@ -97,7 +97,7 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         try {
             FileOutputStream fileOutputStream = openFileOutput(MainActivity.filename, Context.MODE_PRIVATE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -106,7 +106,7 @@ public class PuzzleActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        super.onDestroy();
+        super.onPause();
     }
 
     private int getDp(int i) {

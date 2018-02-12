@@ -16,5 +16,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="Continue Puzzle"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 </LinearLayout>
