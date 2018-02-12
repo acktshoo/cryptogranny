@@ -21,6 +21,7 @@ public class InputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button startPuzzleButton = (Button) findViewById(R.id.startPuzzle);
         startPuzzleButton.setOnClickListener(new View.OnClickListener() {
