@@ -75,6 +75,7 @@ public class PuzzleActivity extends AppCompatActivity {
         keyboard = findViewById(R.id.keyboard);
         for (View view: keyboard.getTouchables()){
             Button button = (Button) view;
+            button.setBackground(button.getBackground().mutate());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
